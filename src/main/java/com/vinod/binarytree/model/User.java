@@ -23,5 +23,5 @@ public class User {
     private boolean parentsLeftChild;
     private boolean firstChequeReceived;
     private Boolean firstChequeReceivedFromLeftChild;
-    private int noOfCheque = -1;
+    private int noOfCheque;
 }
