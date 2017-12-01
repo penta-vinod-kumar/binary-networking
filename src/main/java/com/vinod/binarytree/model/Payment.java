@@ -10,7 +10,7 @@ import java.util.Date;
 @Document
 @Data
 @Slf4j
-public class cheque {
+public class Payment {
     @Id
     private String id;
 

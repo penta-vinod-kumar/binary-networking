@@ -1,7 +1,7 @@
 package com.vinod.binarytree.controller;
 
-import com.vinod.binarytree.model.cheque;
-import com.vinod.binarytree.services.CheckService;
+import com.vinod.binarytree.model.Payment;
+import com.vinod.binarytree.services.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,16 +20,16 @@ import java.util.List;
 public class PaymentsController {
 
     @Autowired
-    private CheckService checkService;
+    private PaymentService paymentService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public ResponseEntity<List<cheque>> getAll() {
-        return new ResponseEntity(checkService.retriveAll(), HttpStatus.OK);
+    public ResponseEntity<List<Payment>> getAll() {
+        return new ResponseEntity(paymentService.retriveAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<cheque>> getCheck(@PathVariable(value = "id")  String userId) {
-        return new ResponseEntity(checkService.retriveCheck(userId), HttpStatus.OK);
+    public ResponseEntity<List<Payment>> getCheck(@PathVariable(value = "id")  String userId) {
+        return new ResponseEntity(paymentService.retriveCheck(userId), HttpStatus.OK);
     }
 
 }

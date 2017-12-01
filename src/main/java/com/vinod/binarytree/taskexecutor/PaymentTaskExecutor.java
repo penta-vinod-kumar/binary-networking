@@ -1,8 +1,8 @@
 package com.vinod.binarytree.taskexecutor;
 
-import com.vinod.binarytree.model.cheque;
+import com.vinod.binarytree.model.Payment;
 import com.vinod.binarytree.model.User;
-import com.vinod.binarytree.repository.ChequeRepository;
+import com.vinod.binarytree.repository.PaymentRepository;
 import com.vinod.binarytree.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -17,7 +17,7 @@ public class PaymentTaskExecutor {
     private UserRepository userRepository;
 
     @Autowired
-    private ChequeRepository chequeRepository;
+    private PaymentRepository paymentRepository;
 
     @Async
     public void updateParentAndProcessPayment(User user) {
@@ -73,11 +73,11 @@ public class PaymentTaskExecutor {
     }
 
     private void createCheque(User parentUser) {
-        cheque cheque = new cheque();
-        cheque.setCreatedOn(new Date());
-        cheque.setUserId(parentUser.getId());
-        cheque.setNumber(parentUser.getNoOfCheque() + 1);
-        chequeRepository.save(cheque);
+        Payment Payment = new Payment();
+        Payment.setCreatedOn(new Date());
+        Payment.setUserId(parentUser.getId());
+        Payment.setNumber(parentUser.getNoOfCheque() + 1);
+        paymentRepository.save(Payment);
         parentUser.setNoOfCheque(parentUser.getNoOfCheque() + 1);
     }
 }
