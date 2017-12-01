@@ -19,6 +19,7 @@ public class PaymentTaskExecutor {
             if (user.isParentsLeftChild()) {
                 parentUser.setLeftChild(user.getId());
                 parentUser.setNoOfLeftChilds(parentUser.getNoOfLeftChilds() + 1);
+                //if(parentUser.)
             } else {
                 parentUser.setRightChild(user.getId());
                 parentUser.setNoOfRightChilds(parentUser.getNoOfRightChilds() + 1);

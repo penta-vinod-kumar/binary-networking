@@ -21,5 +21,5 @@ public class User {
     private long noOfLeftChilds;
     private long noOfRightChilds;
     private boolean parentsLeftChild;
-//    private
+    private boolean conditionSaticified;
 }
