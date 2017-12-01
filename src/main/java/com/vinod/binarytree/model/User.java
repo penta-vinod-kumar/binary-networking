@@ -21,5 +21,7 @@ public class User {
     private long noOfLeftChilds;
     private long noOfRightChilds;
     private boolean parentsLeftChild;
-    private boolean conditionSaticified;
+    private boolean firstChequeReceived;
+    private Boolean firstChequeReceivedFromLeftChild;
+    private int noOfCheque;
 }

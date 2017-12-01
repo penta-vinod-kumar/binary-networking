@@ -2,8 +2,6 @@ package com.vinod.binarytree.controller;
 
 import com.vinod.binarytree.model.User;
 import com.vinod.binarytree.services.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
