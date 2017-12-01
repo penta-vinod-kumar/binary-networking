@@ -60,7 +60,8 @@ public class PaymentTaskExecutor {
                 noOfLeftChildsExcludingFirst3 = parentUser.getNoOfLeftChilds() - 2;
                 noOfRightChildsExcludingFirst3 = parentUser.getNoOfRightChilds() - 2;
             }
-            if (parentUser.getNoOfRightChilds() > parentUser.getNoOfLeftChilds()) {
+            //if (parentUser.getNoOfRightChilds() > parentUser.getNoOfLeftChilds()) {
+            if (noOfRightChildsExcludingFirst3 > noOfLeftChildsExcludingFirst3) {
                 noOfPairs = parentUser.getNoOfLeftChilds();
             } else {
                 noOfPairs = parentUser.getNoOfRightChilds();
