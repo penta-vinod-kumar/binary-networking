@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/binary/payments", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/binary/payments", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class PaymentsController {
 
@@ -28,7 +28,7 @@ public class PaymentsController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Payment>> getCheck(@PathVariable(value = "id")  String userId) {
+    public ResponseEntity<List<Payment>> getCheck(@PathVariable(value = "id") String userId) {
         return new ResponseEntity(paymentService.retriveCheck(userId), HttpStatus.OK);
     }
 
