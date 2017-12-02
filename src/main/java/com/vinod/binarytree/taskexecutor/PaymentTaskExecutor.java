@@ -61,7 +61,7 @@ public class PaymentTaskExecutor {
             } else {
                 noOfPairs = user.getNoOfLeftChildsSatisfiesCondition();
             }
-            if (noOfPairs > user.getNoOfCheque()) {
+            if (noOfPairs > user.getNoOfCheque()-1) {
                 createCheque(user);
             }
         }
