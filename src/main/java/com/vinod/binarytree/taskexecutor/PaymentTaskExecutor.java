@@ -38,38 +38,44 @@ public class PaymentTaskExecutor {
         }
     }
 
-    private void processPayment(User parentUser, boolean isLeftChild) {
-        long noOfLeftChildsExcludingFirst3, noOfRightChildsExcludingFirst3;
+    private void processPayment(User user, boolean isLeftChild) {
+        //long noOfLeftChildsExcludingFirst3, noOfRightChildsExcludingFirst3;
         long noOfPairs;
-        if (!parentUser.isFirstChequeReceived()) {
-            if (isLeftChild && parentUser.getNoOfLeftChilds() == 2 && parentUser.getNoOfRightChilds() == 1) {
-                createCheque(parentUser);
-                parentUser.setFirstChequeReceived(true);
-                parentUser.setFirstChequeReceivedFromLeftChild(true);
-            } else if (parentUser.getNoOfLeftChilds() == 1 && parentUser.getNoOfRightChilds() == 2) {
-                createCheque(parentUser);
-                parentUser.setFirstChequeReceived(true);
-                parentUser.setFirstChequeReceivedFromLeftChild(false);
+        if (!user.isFirstChequeReceived()) {
+            if (isLeftChild && user.getNoOfLeftChilds() == 2 && user.getNoOfRightChilds() == 1) {
+                createCheque(user);
+                user.setFirstChequeReceived(true);
+                user.setFirstChequeReceivedFromLeftChild(true);
+            } else if (user.getNoOfLeftChilds() == 1 && user.getNoOfRightChilds() == 2) {
+                createCheque(user);
+                user.setFirstChequeReceived(true);
+                user.setFirstChequeReceivedFromLeftChild(false);
             }
-        } else if (parentUser.getFirstChequeReceivedFromLeftChild() != null) {
-            if (parentUser.getFirstChequeReceivedFromLeftChild()) {
-                noOfLeftChildsExcludingFirst3 = parentUser.getNoOfLeftChilds() - 2;
-                noOfRightChildsExcludingFirst3 = parentUser.getNoOfRightChilds() - 1;
-                // need to check with stupid business about second check
+            if (user.getParent() != null)
+                updateParent(user);
+        } else {
+            if (user.getNoOfLeftChildsSatisfiesCondition() > user.getNoOfRightChildsSatisfiesCondition()) {
+                noOfPairs = user.getNoOfRightChildsSatisfiesCondition();
             } else {
-                noOfLeftChildsExcludingFirst3 = parentUser.getNoOfLeftChilds() - 2;
-                noOfRightChildsExcludingFirst3 = parentUser.getNoOfRightChilds() - 2;
-            }
-            //if (parentUser.getNoOfRightChilds() > parentUser.getNoOfLeftChilds()) {
-            if (noOfRightChildsExcludingFirst3 > noOfLeftChildsExcludingFirst3) {
-                noOfPairs = parentUser.getNoOfLeftChilds();
-            } else {
-                noOfPairs = parentUser.getNoOfRightChilds();
-            }
-            if (noOfPairs > parentUser.getNoOfCheque()) {
-                createCheque(parentUser);
+                noOfPairs = user.getNoOfLeftChildsSatisfiesCondition();
             }
 
+            if (noOfPairs > user.getNoOfCheque()) {
+                createCheque(user);
+            }
+        }
+    }
+
+    private void updateParent(User user) {
+        User parentUser = userRepository.findOne(user.getParent());
+        if (user.isParentsLeftChild()) {
+            parentUser.setNoOfLeftChildsSatisfiesCondition(parentUser.getNoOfLeftChildsSatisfiesCondition() + 1);
+        } else {
+            parentUser.setNoOfRightChildsSatisfiesCondition(parentUser.getNoOfRightChildsSatisfiesCondition() + 1);
+        }
+        userRepository.save(parentUser);
+        if (parentUser.getParent() != null) {
+            updateParent(parentUser);
         }
     }
 

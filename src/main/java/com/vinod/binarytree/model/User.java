@@ -19,7 +19,9 @@ public class User {
     private String leftChild;
     private String rightChild;
     private long noOfLeftChilds;
+    private long noOfLeftChildsSatisfiesCondition;
     private long noOfRightChilds;
+    private long noOfRightChildsSatisfiesCondition;
     private boolean parentsLeftChild;
     private boolean firstChequeReceived;
     private Boolean firstChequeReceivedFromLeftChild;
