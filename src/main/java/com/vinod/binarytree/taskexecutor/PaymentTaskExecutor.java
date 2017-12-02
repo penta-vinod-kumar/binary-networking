@@ -51,8 +51,11 @@ public class PaymentTaskExecutor {
                 user.setFirstChequeReceived(true);
                 user.setFirstChequeReceivedFromLeftChild(false);
             }
-            if (user.getParent() != null && user.getLeftChild() != null && user.getRightChild() != null)
+            if (user.getParent() != null && user.getLeftChild() != null && user.getRightChild() != null && !user.isParentUpdated()) {
+                user.setParentUpdated(true);
                 updateParent(user);
+            }
+
         } else {
             if (user.getNoOfLeftChildsSatisfiesCondition() > user.getNoOfRightChildsSatisfiesCondition()) {
                 noOfPairs = user.getNoOfRightChildsSatisfiesCondition();
