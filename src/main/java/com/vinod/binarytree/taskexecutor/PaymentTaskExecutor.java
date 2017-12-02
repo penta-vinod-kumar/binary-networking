@@ -46,14 +46,12 @@ public class PaymentTaskExecutor {
                 createCheque(user);
                 user.setFirstChequeReceived(true);
                 user.setFirstChequeReceivedFromLeftChild(true);
-                if (user.getParent() != null)
-                    updateParent(user);
+
             } else if (user.getNoOfLeftChilds() == 1 && user.getNoOfRightChilds() == 2) {
                 createCheque(user);
                 user.setFirstChequeReceived(true);
                 user.setFirstChequeReceivedFromLeftChild(false);
-                if (user.getParent() != null)
-                    updateParent(user);
+
             }
         } else {
             if (user.getNoOfLeftChildsSatisfiesCondition() > user.getNoOfRightChildsSatisfiesCondition()) {
@@ -61,10 +59,13 @@ public class PaymentTaskExecutor {
             } else {
                 noOfPairs = user.getNoOfLeftChildsSatisfiesCondition();
             }
-            if (noOfPairs > user.getNoOfCheque()-1) {
+            if (noOfPairs > user.getNoOfCheque() - 1) {
                 createCheque(user);
             }
         }
+
+        if (user.getParent() != null && user.getLeftChild() != null && user.getRightChild() != null)
+            updateParent(user);
     }
 
     private void updateParent(User user) {
